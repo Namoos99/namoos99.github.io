@@ -1,3 +1,5 @@
-# Namoos Haider portfolio
+# Namoos Haider — Portfolio
 
-Static multi-page site. Deploy with GitHub Pages: Settings > Pages > Deploy from branch > main / root.
+Live site: https://namoos99.github.io
+
+AI/ML engineer portfolio: responsible AI, deep learning and data science projects.
