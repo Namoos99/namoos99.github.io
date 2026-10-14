@@ -101,3 +101,24 @@
   window.__initSite=init;
   init(document);
 })();
+
+// Resume privacy gate: every Resume link asks for permission first
+(function(){
+  if(/resume\.html$/.test(location.pathname)) return;
+  var gate=document.createElement('div');
+  gate.className='gate'; gate.hidden=true;
+  gate.setAttribute('role','dialog'); gate.setAttribute('aria-modal','true'); gate.setAttribute('aria-labelledby','gate-title');
+  gate.innerHTML='<div class="gate-card">'+
+    '<div class="gate-lock"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>'+
+    '<h2 id="gate-title">My resume is shared on request</h2>'+
+    '<p>To keep my personal details private, I send my resume directly to people I’m in touch with. Send a quick request and I’ll get it to you.</p>'+
+    '<div class="gate-actions"><a class="btn btn-primary" href="resume.html">Request access</a><button type="button" class="btn btn-outline" data-gate-close>Not now</button></div>'+
+    '</div>';
+  document.body.appendChild(gate);
+  var last=null;
+  function open(e){ e.preventDefault(); last=document.activeElement; gate.hidden=false; requestAnimationFrame(function(){gate.classList.add('open');}); gate.querySelector('a.btn').focus(); }
+  function close(){ gate.classList.remove('open'); setTimeout(function(){gate.hidden=true;},180); if(last) last.focus(); }
+  document.addEventListener('click',function(e){ var a=e.target.closest && e.target.closest('a[data-resume]'); if(a) open(e); });
+  gate.addEventListener('click',function(e){ if(e.target===gate || e.target.closest('[data-gate-close]')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !gate.hidden) close(); });
+})();

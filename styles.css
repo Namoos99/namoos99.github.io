@@ -457,3 +457,15 @@ footer .top:hover{text-decoration:underline; text-underline-offset:3px}
 .dot{display:inline-block; width:14px; height:14px; border-radius:50%; background:linear-gradient(135deg,#6366F1,#14B8A6); box-shadow:0 0 0 4px rgba(99,102,241,.12)}
 .nodot{display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--border)}
 .skills .btn{justify-self:start}
+/* resume privacy gate */
+.gate{position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:20px; background:rgba(11,18,36,.62); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); opacity:0; transition:opacity .2s ease}
+.gate.open{opacity:1}
+.gate[hidden]{display:none}
+.gate-card{width:100%; max-width:440px; background:var(--card); color:var(--body); border:1px solid var(--border); border-radius:18px; padding:30px 28px 26px; box-shadow:0 30px 60px -20px rgba(0,0,0,.5); transform:translateY(8px); transition:transform .2s ease}
+.gate.open .gate-card{transform:none}
+.gate-lock{width:48px; height:48px; border-radius:14px; display:grid; place-items:center; background:var(--brand-tint); color:var(--brand); margin-bottom:16px}
+.gate-card h2{font-family:var(--display); font-weight:500; font-size:1.6rem; margin:0 0 10px}
+.gate-card p{font-size:.97rem; margin:0 0 22px}
+.gate-actions{display:flex; flex-wrap:wrap; gap:10px}
+.gate-close{position:absolute; margin:-14px 0 0 0; right:auto}
+@media (prefers-reduced-motion:reduce){.gate,.gate-card{transition:none}}
